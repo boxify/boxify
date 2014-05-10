@@ -23,5 +23,8 @@
   "license": "Apache v2",
   "bugs": {
     "url": "https://github.com/boxify/boxify/issues"
+  },
+  "devDependencies": {
+    "reactify": "~0.13.1"
   }
 }

@@ -1,0 +1,5 @@
+{
+  "empty": {},
+  "some things": {"boxNames": ["One", "Two", "Three"], "allNames": ["One", "Two", "Three"]},
+  "some disabled": {"boxNames": ["One", "Two"], "allNames": ["One", "Two", "Three"]}
+}

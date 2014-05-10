@@ -1,0 +1,4 @@
+*.swp
+node_modules
+web/dev
+web/build
