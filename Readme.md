@@ -25,9 +25,15 @@ TODO:
   - style
     - expand
     - custom (low)
+
 - outlet
   - switch between routes
   - have the outlet there if no children and routes exist
+
+- make the filler full of awesome icons
+  - wrnech for editor.
+  - toggle vertical / horizontal
+  - toggle "expand" (flex: 1 or 0)
 
 - then look into export... and other stuff. Chrome app. At this point I think I can mostly
   recreate guided-ml. We'll see.
