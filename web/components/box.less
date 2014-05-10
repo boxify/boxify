@@ -1,0 +1,51 @@
+
+.box {
+  padding: 20px;
+  position: relative;
+  font-family: sans-serif;
+  flex: 1;
+  display: flex;
+  border: 1px solid #ccc;
+  min-height: 30px;
+  min-width: 30px;
+  overflow: hidden;
+}
+
+.box > .edit-button {
+  display: none;
+}
+
+.box:hover > .edit-button {
+  display: block;
+}
+
+.box > .add-box {
+  visibility: hidden;
+}
+
+.box:hover > .add-box {
+  visibility: visible;
+}
+
+.box_name {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 3px 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #777;
+  color: white;
+  font-size: 12px;
+}
+
+.box_filler {
+  flex: 1;
+  font-size: 30px;
+  color: #aaa;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+  cursor: pointer;
+}
+

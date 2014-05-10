@@ -1,7 +1,9 @@
 /** @jsx React.DOM */
 
-var Playground= = require('./playground.jsx')
+var Playground = require('./playground.jsx')
   , Library = require('./library.jsx')
+
+  , _ = require('lodash')
 
 var Boxify = module.exports = React.createClass({
   displayName: 'Boxify',

@@ -2,8 +2,9 @@
 .add-box {
   position: relative;
   cursor: pointer;
-  height: 20px;
-  background-color: #eef;
+  min-height: 10px;
+  min-width: 10px;
+  background-color: white;
 
   &:after {
     content: '+';
@@ -23,60 +24,21 @@
     margin-left: -17.5px;
     margin-top: -17.5px;
     background-color: #aaf;
+    border: 1px solid #aaf;
 
     &:hover {
       background-color: #ccc;
     }
   }
 
+  &:hover:after {
+    background-color: #fff;
+  }
+
   &.add-box--showing {
     &:after {
       display: none;
     }
-  }
-}
-
-.add-box_list {
-  position: absolute;
-  min-width: 200px;
-  background-color: white;
-  border: 1px solid #ccc;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  z-index: 2;
-
-  top: -8px;
-  left: 50%;
-  margin-left: -100px;
-}
-
-.add-box_entry {
-  padding: 5px 10px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #ccc;
-  }
-}
-
-.add-box_input {
-  padding: 3px 5px;
-  font-size: 16px;
-  box-sizing: border-box;
-  border: 1px solid #777;
-  margin: 2px;
-
-  &:focus {
-    outline: none;
-
-    border-color: red;
-  }
-}
-
-.add-box_input--good {
-  &:focus {
-    border-color: #afa;
   }
 }
 

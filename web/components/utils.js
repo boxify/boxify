@@ -1,6 +1,13 @@
 
 module.exports = {
-  offset: offset
+  offset: offset,
+  isGoodRoute: isGoodRoute
+}
+
+function isGoodRoute(route, taken) {
+  route = route.replace(/^\//, '').replace(/\/$/, '').toLowerCase()
+  if (taken.indexOf(route) !== -1) return false
+  return !route.match(/[\s\/]/)
 }
 
 function offset(node) {

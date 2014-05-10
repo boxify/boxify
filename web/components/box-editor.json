@@ -1,0 +1,19 @@
+{
+  "simple": {
+    "box": {
+      "name": "MyBox"
+    }
+  },
+  "routing": {
+    "box": {
+      "name": "WithRoutes",
+      "routes": {
+        "": "OneBox",
+        "features": "TwoBox",
+        "learners": "BlueBox"
+      }
+    },
+    "trail": ["TwoBox"],
+    "boxNames": ["OneBox", "TwoBox", "RedBox", "BlueBox"]
+  }
+}

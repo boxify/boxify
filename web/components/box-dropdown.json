@@ -1,0 +1,7 @@
+{
+  "simple": {
+    "value": "One",
+    "boxNames": ["One", "Two"],
+    "allNames": ["One", "Two"]
+  }
+}

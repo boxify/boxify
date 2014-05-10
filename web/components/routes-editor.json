@@ -1,0 +1,18 @@
+{
+  "routing": {
+    "routes": {
+      "": "OneBox",
+      "features": "TwoBox",
+      "learners": "BlueBox"
+    },
+    "allNames": ["OneBox", "TwoBox", "RedBox", "BlueBox"],
+    "boxNames": ["OneBox", "TwoBox", "RedBox", "BlueBox"]
+  },
+  "empty": {
+    "routes": {
+    },
+    "allNames": ["OneBox", "TwoBox", "RedBox", "BlueBox"],
+    "boxNames": ["OneBox", "TwoBox", "RedBox", "BlueBox"]
+  }
+}
+

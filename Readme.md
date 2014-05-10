@@ -6,7 +6,6 @@ Develop complex react web apps without losing context.
 Get an overview of your app, including all of the routes, models, and
 components. All without losing context.
 
-
 - this instance
   - props
   - style?
@@ -20,10 +19,22 @@ components. All without losing context.
 - routes
 - models
 
+TODO:
 
-|----------|
-|
-|
-| this instance | 
-|
+- editor
+  - style
+    - expand
+    - custom (low)
+- outlet
+  - switch between routes
+  - have the outlet there if no children and routes exist
+
+- then look into export... and other stuff. Chrome app. At this point I think I can mostly
+  recreate guided-ml. We'll see.
+- make model-editor
+
+
+- make the filler an edit shortcut. Also the name thing.
+- maybe just have a global editor component? hmm :( not for now at least
+
 

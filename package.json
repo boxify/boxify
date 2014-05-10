@@ -26,5 +26,8 @@
   },
   "devDependencies": {
     "reactify": "~0.13.1"
+  },
+  "dependencies": {
+    "lodash": "~2.4.1"
   }
 }

@@ -1,0 +1,11 @@
+{
+  "simple": {
+    "value": "100",
+  },
+  "px": {
+    "value": "-20px"
+  },
+  "percent": {
+    "value": "15%"
+  }
+}

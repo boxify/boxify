@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-var Box = require('./box')
+var Box = require('./box.jsx')
 
 var Playground = module.exports = React.createClass({
   displayName: 'Playground',

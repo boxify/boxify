@@ -1,0 +1,48 @@
+
+.button-switch {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  font-family: sans-serif;
+  display: inline-block;
+}
+
+@rad: 10px;
+
+.button-switch_item {
+  display: inline-block;
+  padding: 7px 15px;
+  margin: 0;
+
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background-color: white;
+
+  &:hover {
+    background-color: #fff;
+  }
+
+  &:not(:first-child) {
+    border-left: none;
+  }
+  &:first-child {
+    border-top-left-radius: @rad;
+    border-bottom-left-radius: @rad;
+    margin-left: 5px;
+  }
+  &:last-child {
+    border-top-right-radius: @rad;
+    border-bottom-right-radius: @rad;
+    margin-right: 5px;
+  }
+}
+
+.button-switch_item--selected {
+  background-color: #ddd;
+
+  &:hover {
+    background-color: #ccc;
+  }
+}
+

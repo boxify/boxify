@@ -1,0 +1,46 @@
+
+.box-editor {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  font-family: sans-serif;
+  border: 1px solid #aaa;
+  padding: 5px;
+}
+
+.box-editor_pane {
+  flex: 1;
+  padding: 10px;
+}
+
+.box-editor_title {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.box-editor_tabs {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.box-editor_tab {
+  display: inline-block;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #eee;
+  }
+}
+
+.box-editor_tab--selected {
+  background-color: #ddd;
+  &:hover {
+    background-color: #ccc;
+  }
+}
+

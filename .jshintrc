@@ -3,8 +3,10 @@
   "laxcomma": true,
   "undef": true,
   "node": true,
+  "browser": true,
   "globals": {
     "React": false,
+    "window": false,
     "moment": false,
     "$": false
   },

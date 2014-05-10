@@ -1,0 +1,7 @@
+{
+  "simple": {
+    "initialValue": {"name": "/here", "value": "One"},
+    "boxNames": ["One", "Two", "Three"],
+    "allNames": ["One", "Two", "Three"]
+  }
+}

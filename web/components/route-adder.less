@@ -1,0 +1,28 @@
+
+.route-adder .route-editor {
+  display: inline-block;
+}
+
+.route-adder_new {
+  padding: 3px 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: white;
+  color: #333;
+
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: #eee;
+  }
+
+  &[disabled] {
+    background-color: #eee;
+    color: #999;
+    font-style: italic;
+  }
+}
+
