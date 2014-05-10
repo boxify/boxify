@@ -14,8 +14,8 @@ var Box = module.exports = React.createClass({
       trail: []
     }
   },
-  onAdd: function (name) {
-    this.props.onChange(name, {children: {$push: {type: 'box', box: name}}})
+  onAdd: function (name, isNew) {
+    this.props.man.addChild(name, this.props.name)
   },
   getBox: function () {
     return this.props.boxes[this.props.name]

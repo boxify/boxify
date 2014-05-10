@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+var utils = require('./utils')
+
 var AddBox = module.exports = React.createClass({
   displayName: 'AddBox',
   getDefaultProps: function () {
@@ -21,11 +23,31 @@ var AddBox = module.exports = React.createClass({
       window.removeEventListener('mousedown', this.hide)
     } else {
       window.addEventListener('mousedown', this.hide)
+      this.adjustPlacement()
       this.refs.input.getDOMNode().focus()
     }
   },
+  adjustPlacement: function () {
+    var node = this.refs.list.getDOMNode()
+      , pos = utils.offset(node)
+      , ppos = utils.offset(this.getDOMNode())
+    if (pos.left < 0) pos.left = 0
+    if (pos.top < window.scrollY) pos.top = window.scrollY
+    if (pos.left + node.offsetWidth > window.innerWidth) {
+      pos.left = window.innerWidth - node.offsetWidth
+    }
+    if (pos.top + node.offsetHeight > window.innerHeight + window.scrollY) {
+      pos.top = window.innerHeight + window.scrollY - node.offsetHeight
+    }
+    this.setState({
+      pos: {
+        top: pos.top - ppos.top,
+        left: pos.left - ppos.left,
+      }
+    })
+  },
   hide: function () {
-    this.setState({showing: false})
+    this.setState({showing: false, pos: null})
   },
   show: function () {
     this.setState({showing: true})
@@ -49,13 +71,20 @@ var AddBox = module.exports = React.createClass({
     if (e.keyCode === 13) { // return
       if (!this.state.goodNew) return
       this.hide()
-      this.props.onAdd(this.state.newName)
+      this.props.onAdd(this.state.newName, true)
     }
   },
   droplist: function () {
     var names = {}
+      , style = {}
+    if (this.state.pos) {
+      style.top = this.state.pos.top
+      style.left = this.state.pos.left
+      style.marginLeft = 0
+      style.marginTop = 0
+    }
     return (
-      <ul className='add-box_list' onMouseDown={this.onMouseDown}>
+      <ul ref='list' style={style} className='add-box_list' onMouseDown={this.onMouseDown}>
         {
           this.props.boxNames.map(function (name) {
             return (
