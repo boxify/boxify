@@ -21,7 +21,7 @@ var Numput = module.exports = React.createClass({
   change: function (by) {
     var val = parseFloat(this.props.value || 0)
     if (isNaN(val)) return
-    var newv = val + by + this.props.value.slice('' + val)
+    var newv = val + by + this.props.value.slice(('' + val).length)
     this.props.onChange(newv)
   },
   render: function () {

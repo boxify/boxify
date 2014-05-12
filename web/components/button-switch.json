@@ -6,5 +6,6 @@
   "complex": {
     "value": "one",
     "options": [["O1", "one"], ["O2", "two"], ["o3", "three"]]
-  }
+  },
+  "_wrapState": true
 }

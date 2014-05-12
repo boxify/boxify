@@ -7,7 +7,7 @@ var RouteAdder = module.exports = React.createClass({
   displayName: 'RouteAdder',
   getDefaultProps: function () {
     return {
-      onAdd: function (name, value) {console.log('creating', name, value)},
+      onAdd: function (route) {console.log('creating', route)},
       boxNames: [],
       allNames: [],
       routesTaken: []
@@ -23,10 +23,10 @@ var RouteAdder = module.exports = React.createClass({
     if (!utils.isGoodRoute(this.state.name, this.props.routesTaken)) {
       return
     }
-    this.props.onAdd(this.state.name, this.state.value)
+    this.props.onAdd({name: this.state.name, value: this.state.value})
   },
-  onChange: function (name, value) {
-    this.setState({name: name, value: value})
+  onChange: function (route) {
+    this.setState(route)
   },
   render: function () {
     var enabled = utils.isGoodRoute(this.state.name, this.props.routesTaken)
@@ -44,4 +44,3 @@ var RouteAdder = module.exports = React.createClass({
 })
 
 // vim: set tabstop=2 shiftwidth=2 expandtab:
-

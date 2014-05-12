@@ -3,5 +3,6 @@
     "value": "One",
     "boxNames": ["One", "Two"],
     "allNames": ["One", "Two"]
-  }
+  },
+  "_wrapState": true
 }

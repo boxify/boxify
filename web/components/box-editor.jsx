@@ -10,6 +10,7 @@ var BoxEditor = module.exports = React.createClass({
     return {
       onChangeInst: function () {console.log('changing inst')},
       onChangeBox: function (update) {console.log('changing box', update)},
+      onNewBox: function (name, done) {console.log('newing box', name); done()},
       isRoot: false,
       inst: null,
       box: null,
@@ -19,12 +20,12 @@ var BoxEditor = module.exports = React.createClass({
   },
   getInitialState: function () {
     return {
-      selectedTab: 'Style'
+      selectedTab: 'Routes'
     }
   },
 
   tabsList: function () {
-    var tabs = ['Style', 'Routes']// , 'Models']
+    var tabs = ['Routes', 'Style']// , 'Models']
     // if (this.props.inst) tabs.unshift('Inst')
     return tabs.map(function (tab) {
       var cls = 'box-editor_tab'
@@ -32,7 +33,7 @@ var BoxEditor = module.exports = React.createClass({
         cls += ' box-editor_tab--selected'
       }
       return (
-        <li className={cls} onClick={this.switchTab.bind(null, tab)}>
+        <li className={cls} key={tab} onClick={this.switchTab.bind(null, tab)}>
           {tab}
         </li>
       )
@@ -87,16 +88,25 @@ var BoxEditor = module.exports = React.createClass({
   disableRouting: function () {
     this.props.onChangeBox({routes: {$set: null}})
   },
-  addRoute: function (name, value) {
+  addRoute: function (route) {
+    if (route.name[0] !== '/') route.name = '/' + route.name
     var update = {routes: {}}
-    update.routes[name] = {$set: value}
+    update.routes[route.name] = {$set: route.value}
+    if (this.props.boxNames.indexOf(route.value) === -1) {
+      return this.props.onNewBox(route.value, this.props.onChangeBox.bind(null, update, null, null))
+    }
     this.props.onChangeBox(update)
   },
-  changeRoute: function (orig, name, value) {
+  changeRoute: function (orig, route) {
+    if (route.name[0] !== '/') route.name = '/' + route.name
     var routes = _.clone(this.props.box.routes)
     delete routes[orig]
-    routes[name] = value
-    this.props.onChangeBox({routes: {$set: routes}})
+    routes[route.name] = route.value
+    var update = {routes: {$set: routes}}
+    if (this.props.boxNames.indexOf(route.value) === -1) {
+      return this.props.onNewBox(route.value, this.props.onChangeBox.bind(null, update, null, null))
+    }
+    this.props.onChangeBox(update)
   },
   pane: function () {
     return this.tabs[this.state.selectedTab].call(this, this.props.box)

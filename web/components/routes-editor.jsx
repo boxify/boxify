@@ -10,8 +10,8 @@ var RoutesEditor = module.exports = React.createClass({
       boxNames: [],
       allNames: [],
       routes: {},
-      onChange: function (orig, name, value) {console.log('changing', orig, name, value)},
-      onAdd: function (name, value) {console.log('adding', name, value)}
+      onChange: function (orig, value) {console.log('changing', orig, name, value)},
+      onAdd: function (route) {console.log('adding', route)}
     }
   },
   render: function () {

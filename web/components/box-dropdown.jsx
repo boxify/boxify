@@ -6,7 +6,7 @@ var BoxDropdown = module.exports = React.createClass({
   displayName: 'BoxDropdown',
   getDefaultProps: function () {
     return {
-      value: '[add box]',
+      value: '',
       boxNames: [],
       allNames: [],
       canAddOutlet: false,
@@ -32,7 +32,7 @@ var BoxDropdown = module.exports = React.createClass({
       <div className='box-dropdown'>
         <div
           onClick={this.show}
-          className='box-dropdown_value'>{this.props.value}</div>
+          className='box-dropdown_value'>{this.props.value || '[add box]'}</div>
         {this.state.showing && BoxPicker({
           boxNames: names,
           allNames: this.props.allNames,

@@ -11,7 +11,7 @@ var RouteEditor = module.exports = React.createClass({
       boxNames: [],
       allNames: [],
       routesTaken: [],
-      onChange: function (name, value) {console.log('changing', name, value)}
+      onChange: function (value) {console.log('changing', value)}
     }
   },
   getInitialState: function () {
@@ -27,10 +27,10 @@ var RouteEditor = module.exports = React.createClass({
     if (!utils.isGoodRoute(name, this.props.routesTaken)) {
       return this.setState({name: this.props.initialValue.name})
     }
-    this.props.onChange(name, this.props.initialValue.value)
+    this.props.onChange({name: name, value: this.props.initialValue.value})
   },
   onChangeValue: function (value) {
-    this.props.onChange(this.state.name, value)
+    this.props.onChange({name: this.state.name, value: value})
   },
   componentWillReceiveProps: function (props) {
     this.setState({name: props.initialValue.name})

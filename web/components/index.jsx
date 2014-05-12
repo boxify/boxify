@@ -4,6 +4,7 @@ var Playground = require('./playground.jsx')
   , Library = require('./library.jsx')
 
   , _ = require('lodash')
+  , utils = require('./utils')
 
 var Boxify = module.exports = React.createClass({
   displayName: 'Boxify',
@@ -16,29 +17,13 @@ var Boxify = module.exports = React.createClass({
       },
     }
   },
-  onChangeBox: function (box, update) {
-    if (update === 'delete') {
-      var boxes = _.clone(this.state.boxes)
-      delete boxes[box]
-      return this.setState({boxes: boxes})
-    }
-    var full = {}
-    full[box] = update
-    this.setState({
-      boxes: React.addons.update(this.state.boxes, full)
-    })
+  onChangeBox: function (box, update, done) {
+    var boxes = utils.updateBox(box, update, this.state.boxes)
+    this.setState({boxes: boxes}, done)
   },
   onChangeInst: function (parent, i, update) {
-    var full = {}
-    full[parent] = {children: {}}
-    if (update === 'delete') {
-      full[parent].children = {$splice: [[i, 1]]}
-    } else {
-      full[parent].children[i] = update
-    }
-    this.setState({
-      boxes: React.addons.update(this.state.boxes, full)
-    })
+    var boxes = utils.updateInst(parent, i, update, this.state.boxes)
+    this.setState({boxes: boxes})
   },
   render: function () {
     return (

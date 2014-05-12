@@ -6,9 +6,12 @@
   flex: 1;
   display: flex;
   border: 1px solid #ccc;
-  min-height: 30px;
+  min-height: 50px;
   min-width: 30px;
-  overflow: hidden;
+}
+
+.box--childless {
+  padding: 10px;
 }
 
 .box > .edit-button {
@@ -27,25 +30,99 @@
   visibility: visible;
 }
 
-.box_name {
+.box_controls {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 3px 10px;
+  padding: 0 7px 0 0;
   border-bottom-left-radius: 10px;
   background-color: #777;
   color: white;
   font-size: 12px;
 }
 
-.box_filler {
+.box_control {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 15px;
+  display: inline-block;
+  color: white;
+
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+  &:focus {
+    outline: none;
+  }
+
+}
+
+.box_controls_buttons {
+  text-align: center;
+  display: inline-block;
+}
+
+.box_controls--childless {
   flex: 1;
+  position: static;
+  background-color: transparent;
   font-size: 30px;
   color: #aaa;
   font-weight: bold;
   text-align: center;
   vertical-align: middle;
-  overflow: hidden;
   cursor: pointer;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  .box_controls_buttons {
+    text-align: center;
+    display: block;
+  }
+
+  .box_control {
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    border: 2px solid #ccc;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 5px;
+    color: black;
+
+    &:hover {
+      background-color: white;
+    }
+  }
+}
+
+.box_remove {
+  &:after {
+    content: '\00D7';
+  }
+}
+
+.box_control-expand {
+  &:after {
+    content: 'X';
+  }
+}
+
+.box_control-orientation {
+  &:after {
+    content: 'O';
+  }
+}
+
+.box_control-edit {
+  &:after {
+    content: 'E';
+  }
 }
 

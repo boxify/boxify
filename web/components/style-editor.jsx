@@ -3,6 +3,7 @@
 var _ = require('lodash')
   , Numput = require('./numput.jsx')
   , ButtonSwitch = require('./button-switch.jsx')
+  , ToggleButton = require('./toggle-button.jsx')
 
 var StyleEditor = module.exports = React.createClass({
   displayName: 'StyleEditor',
@@ -29,6 +30,14 @@ var StyleEditor = module.exports = React.createClass({
                 value={style.flex}
                 onChange={this.onChange.bind(null, 'flex')}
                 options={['horizontal', 'vertical', 'none']}/>
+            </td>
+          </tr>
+          <tr>
+            <td>Expand</td>
+            <td>
+              <ToggleButton
+                value={style.expand === undefined ? true : style.expand}
+                onChange={this.onChange.bind(null, 'expand')}/>
             </td>
           </tr>
           <tr>
