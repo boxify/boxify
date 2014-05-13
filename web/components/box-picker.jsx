@@ -90,7 +90,7 @@ var BoxPicker = module.exports = React.createClass({
             )
           }.bind(this))
         }
-        {this.props.canAddOutlet && d.li({className: 'box-picker_outlet', onClick: this.onSelect.bind(null, '<outlet>')}, '<outlet>')}
+        {this.props.canAddOutlet && d.li({className: 'box-picker_outlet box-picker_entry', onClick: this.onSelect.bind(null, '<outlet>')}, '[outlet]')}
         <li className='box-picker_new'>
           <input className={'box-picker_input' + (this.state.goodNew ? ' box-picker_input--good' : '')}
             ref='input'

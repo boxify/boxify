@@ -24,16 +24,21 @@ var Outlet = module.exports = React.createClass({
     })
   },
   defaultRoute: function (props) {
+    if (!props.routes) return false
     var names = Object.keys(props.routes)
     return names[0]
   },
   onSwitchRoute: function (name) {
     this.setState({route: name})
   },
+  onRemove: function () {
+    this.props.changeInst('delete')
+  },
   render: function () {
-    var routeNames = Object.keys(this.props.routes)
+    var routeNames = Object.keys(this.props.routes || {})
       , current = this.state.route
-      , cls = this.props.routes[current]
+      , cls = current !== false && this.props.routes &&  this.props.routes[current]
+    routeNames.sort()
     return (
       <div className='outlet'>
         <div className='outlet_head'>
@@ -57,6 +62,8 @@ var Outlet = module.exports = React.createClass({
           </ul>
           <button className='outlet_edit'
             onClick={this.props.onEditRoutes}/>
+          <button className='outlet_remove'
+            onClick={this.onRemove}/>
         </div>
         {cls && Box({
           inst: null,

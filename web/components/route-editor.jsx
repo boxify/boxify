@@ -10,6 +10,7 @@ var RouteEditor = module.exports = React.createClass({
       initialValue: {name: '', value: ''},
       boxNames: [],
       allNames: [],
+      allChanges: false,
       routesTaken: [],
       onChange: function (value) {console.log('changing', value)}
     }
@@ -20,6 +21,13 @@ var RouteEditor = module.exports = React.createClass({
     }
   },
   onChangeName: function (e) {
+    if (this.props.allChanges) {
+      this.props.onChange({
+        name: e.target.value,
+        value: this.props.initialValue.value
+      })
+      return
+    }
     this.setState({name: e.target.value})
   },
   onBlur: function () {

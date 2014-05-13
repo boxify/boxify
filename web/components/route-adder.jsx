@@ -36,6 +36,7 @@ var RouteAdder = module.exports = React.createClass({
           routesTaken={this.props.routesTaken}
           boxNames={this.props.boxNames}
           allNames={this.props.allNames}
+          allChanges={true}
           onChange={this.onChange}/>
         <button className='route-adder_new' onClick={this.onAdd} disabled={!enabled}>Create</button>
       </div>

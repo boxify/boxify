@@ -10,7 +10,7 @@ module.exports = {
 
 function isGoodRoute(route, taken) {
   route = route.replace(/\/$/, '').toLowerCase()
-  if (route[0] !== '/') route = route + '/'
+  if (route[0] !== '/') route = '/' + route
   if (taken.indexOf(route) !== -1) return false
   return !route.slice(1).match(/[\s\/]/)
 }

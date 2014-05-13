@@ -11,27 +11,35 @@ var RoutesEditor = module.exports = React.createClass({
       allNames: [],
       routes: {},
       onChange: function (orig, value) {console.log('changing', orig, name, value)},
+      onRemove: function (name) {console.log('removing', name)},
       onAdd: function (route) {console.log('adding', route)}
     }
   },
   render: function () {
     var routeNames = Object.keys(this.props.routes)
+    routeNames.sort()
     return (
       <div className='routes-editor'>
-        {
-          routeNames.map(function (route) {
-            var routesTaken = routeNames.slice()
-            routesTaken.splice(routesTaken.indexOf(route), 1)
-            return (
-              <RouteEditor
-                boxNames={this.props.boxNames}
-                routesTaken={routesTaken}
-                allNames={this.props.allNames}
-                initialValue={{name: route, value: this.props.routes[route]}}
-                onChange={this.props.onChange.bind(null, route)}/>
-            )
-          }.bind(this))
-        }
+        <ul className='routes-editor_list'>
+          {
+            routeNames.map(function (route) {
+              var routesTaken = routeNames.slice()
+              routesTaken.splice(routesTaken.indexOf(route), 1)
+              return (
+                <li className='routes-editor_item'>
+                  <RouteEditor
+                    boxNames={this.props.boxNames}
+                    routesTaken={routesTaken}
+                    allNames={this.props.allNames}
+                    initialValue={{name: route, value: this.props.routes[route]}}
+                    onChange={this.props.onChange.bind(null, route)}/>
+                  <button className='routes-editor_remove'
+                    onClick={this.props.onRemove.bind(null, route)}/>
+                </li>
+              )
+            }.bind(this))
+          }
+        </ul>
         <RouteAdder
           boxNames={this.props.boxNames}
           allNames={this.props.allNames}

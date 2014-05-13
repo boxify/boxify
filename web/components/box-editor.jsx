@@ -72,6 +72,7 @@ var BoxEditor = module.exports = React.createClass({
             boxNames={boxNames}
             allNames={this.props.boxNames}
             onChange={this.changeRoute}
+            onRemove={this.removeRoute}
             addRoute={this.addRoute}
             />
         </div>
@@ -95,6 +96,12 @@ var BoxEditor = module.exports = React.createClass({
     if (this.props.boxNames.indexOf(route.value) === -1) {
       return this.props.onNewBox(route.value, this.props.onChangeBox.bind(null, update, null, null))
     }
+    this.props.onChangeBox(update)
+  },
+  removeRoute: function (name) {
+    var routes = _.clone(this.props.box.routes)
+    delete routes[name]
+    var update = {routes: {$set: routes}}
     this.props.onChangeBox(update)
   },
   changeRoute: function (orig, route) {

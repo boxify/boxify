@@ -8,11 +8,13 @@ var Playground = module.exports = React.createClass({
     return (
       <div className='playground'>
         <Box
-          onChangeBox={this.props.onChange}
+          onChangeBox={this.props.onChangeBox}
           onChangeInst={this.props.onChangeInst}
+          changeBox={this.props.onChangeBox.bind(null, this.props.rootBox)}
           boxes={this.props.boxes}
           parent={null}
           trail={[]}
+          changeInst={null}
           name={this.props.rootBox}/>
       </div>
     )

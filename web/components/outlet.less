@@ -18,9 +18,31 @@
   margin-right: 10px;
 }
 
+.m-o-b {
+  border: 1px solid orange;
+  border-radius: 10px;
+  background-color: transparent;
+  padding: 3px 7px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: white;
+  }
+}
+
 .outlet_edit {
+  .m-o-b;
+
   &:after {
     content: 'edit';
+  }
+}
+
+.outlet_remove {
+  .m-o-b;
+
+  &:after {
+    content: '\00D7';
   }
 }
 

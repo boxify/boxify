@@ -44,6 +44,7 @@ module.exports = {
   "simple": {
     "name": "Awesome",
     "inst": {"type": "box", "box": "Awesome"},
+    "changeInst": false,
     "boxes": {
       "Awesome": {
         "name": "Awesome",
@@ -62,6 +63,7 @@ module.exports = {
   "outletted": {
     "name": "Awesome",
     "inst": {"type": "box", "box": "Awesome"},
+    "changeInst": false,
     "boxes": {
       "Awesome": {
         "style": {

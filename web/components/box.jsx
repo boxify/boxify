@@ -100,7 +100,7 @@ var Box = module.exports = React.createClass({
           onChangeInst={this.props.changeInst}
           onChangeBox={this.props.changeBox}
           onNewBox={this.onNewBox}
-          trail={this.props.trail}
+          trail={this.props.trail.concat([this.props.name])}
           boxNames={Object.keys(this.props.boxes)}
           isRoot={!this.props.parent}
           inst={this.props.inst}
@@ -143,6 +143,7 @@ var Box = module.exports = React.createClass({
                         onChangeBox={this.props.onChangeBox}
                         onChangeRoutes={this.onChangeRoutes}
                         onEditRoutes={this.onEdit}
+                        changeInst={this.props.onChangeInst.bind(null, this.props.name, i)}
                         trail={trail}
                         routes={box.routes}/>
             }
@@ -159,7 +160,7 @@ var Box = module.exports = React.createClass({
                       trail={trail}/>
           }.bind(this))
         }
-        <AddBox canAddOutlet={!!box.routes} boxNames={addNames} allNames={Object.keys(this.props.boxes)} onAdd={this.onAdd}/>
+        <AddBox canAddOutlet={true} boxNames={addNames} allNames={Object.keys(this.props.boxes)} onAdd={this.onAdd}/>
         {this.editor()}
       </div>
     )
