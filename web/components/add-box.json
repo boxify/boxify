@@ -1,5 +1,41 @@
 {
   "empty": {},
-  "some things": {"boxNames": ["One", "Two", "Three"], "allNames": ["One", "Two", "Three"]},
-  "some disabled": {"boxNames": ["One", "Two"], "allNames": ["One", "Two", "Three"]}
+  "some things": {
+    "boxNames": [{
+      "name": "One", 
+      "id": 0
+    },
+    {
+      "name": "Two", 
+      "id": 1
+    },
+    {
+      "name": "Three",
+      "id": 2
+    }],
+    "exclude": []
+  },
+  "some disabled": {
+    "boxNames": [{
+      "name": "One", 
+      "id": 0
+    },
+    {
+      "name": "Four", 
+      "id": 10
+    },
+    {
+      "name": "Seven", 
+      "id": 8
+    },
+    {
+      "name": "Two", 
+      "id": 1
+    },
+    {
+      "name": "Three",
+      "id": 2
+    }],
+    "exclude": [0,1]
+  },
 }

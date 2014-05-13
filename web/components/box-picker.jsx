@@ -12,10 +12,11 @@ var BoxPicker = module.exports = React.createClass({
   getDefaultProps: function () {
     return {
       onHide: function () {console.log('want to hide')},
-      onSelect: function (name, isNew) {console.log('selecting', name, isNew)},
+      onSelect: function (id) {console.log('selecting', id)},
+      onNew: function (name) {console.log('new', name)},
       canAddOutlet: false,
       boxNames: [],
-      allNames: []
+      exclude: []
     }
   },
   getInitialState: function () {
@@ -51,11 +52,11 @@ var BoxPicker = module.exports = React.createClass({
       }
     })
   },
-  onSelect: function (name, e) {
+  onSelect: function (id, e) {
     e.stopPropagation()
     e.preventDefault()
     this.props.onHide()
-    this.props.onSelect(name)
+    this.props.onSelect(id)
   },
   onMouseDown: function (e) {
     e.stopPropagation()
@@ -63,14 +64,23 @@ var BoxPicker = module.exports = React.createClass({
   onChangeNew: function (e) {
     this.setState({
       newName: e.target.value,
-      goodNew: isGood(e.target.value) && this.props.allNames.indexOf(e.target.value) === -1
     })
+  },
+  newIsGood: function () {
+    var val = this.state.newName
+      , good = isGood(val)
+    if (good) {
+      this.props.boxNames.forEach(function (box) {
+        if (box.name === val) good = false
+      })
+    }
+    return good
   },
   onKeyDown: function (e) {
     if (e.keyCode === 13) { // return
-      if (!this.state.goodNew) return
+      if (!this.newIsGood()) return
       this.props.onHide()
-      this.props.onSelect(this.state.newName, true)
+      this.props.onNew(this.state.newName)
     }
   },
   render: function () {
@@ -81,18 +91,22 @@ var BoxPicker = module.exports = React.createClass({
       style.marginLeft = 0
       style.marginTop = 0
     }
+    var exclude = this.props.exclude
+      , boxes = this.props.boxNames.filter(function (box) {
+          return exclude.indexOf(box.id) === -1
+        })
     return (
       <ul ref='list' style={style} className='box-picker' onMouseDown={this.onMouseDown}>
         {
-          this.props.boxNames.map(function (name) {
+          boxes.map(function (box) {
             return (
-              <li className='box-picker_entry' onClick={this.onSelect.bind(null, name)}>{name}</li>
+              <li className='box-picker_entry' onClick={this.onSelect.bind(null, box.id)}>{box.name}</li>
             )
           }.bind(this))
         }
         {this.props.canAddOutlet && d.li({className: 'box-picker_outlet box-picker_entry', onClick: this.onSelect.bind(null, '<outlet>')}, '[outlet]')}
         <li className='box-picker_new'>
-          <input className={'box-picker_input' + (this.state.goodNew ? ' box-picker_input--good' : '')}
+          <input className={'box-picker_input' + (this.newIsGood() ? ' box-picker_input--good' : '')}
             ref='input'
             onKeyDown={this.onKeyDown}
             placeholder='New Box'

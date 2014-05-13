@@ -1,8 +1,7 @@
 {
   "simple": {
-    "value": "One",
-    "boxNames": ["One", "Two"],
-    "allNames": ["One", "Two"]
+    "value": 0,
+    "boxNames": [{"id": 0, "name": "One"}, {"id": 2, "name": "Two"}]
   },
   "_wrapState": true
 }

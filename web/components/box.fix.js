@@ -1,5 +1,6 @@
 
 var utils = require('./utils')
+  , _ = require('lodash')
 
 function clone(a) {
   var b = {}
@@ -30,62 +31,77 @@ var BoxWrapper = React.createClass({
     var boxes = utils.updateInst(parent, i, update, this.state.boxes)
     this.setState({boxes: boxes})
   },
+  onNewBox: function (name, done) {
+    var boxes = _.clone(this.state.boxes)
+      , id = this.newId()
+    boxes[id] = {name: name}
+    this.setState({boxes: boxes}, done.bind(null, id))
+  },
+  newId: function () {
+    var id
+    do {
+      id = parseInt(Math.random() * 1000)
+    } while (undefined !== this.state.boxes[id])
+    return id
+  },
   render: function () {
     var props = clone(this.props.props)
     props.boxes = this.state.boxes
-    props.changeBox = this.onChangeBox.bind(null, this.props.props.name)
+    props.changeBox = this.onChangeBox.bind(null, this.props.props.id)
     props.onChangeBox = this.onChangeBox
     props.onChangeInst = this.onChangeInst
+    props.onNewBox = this.onNewBox
     return this.props.cls(props)
   }
 })
 
 module.exports = {
   "simple": {
-    "name": "Awesome",
-    "inst": {"type": "box", "box": "Awesome"},
+    "id": "0",
+    "inst": {"type": "box", "box": "0"},
     "changeInst": false,
     "boxes": {
-      "Awesome": {
+      "0": {
         "name": "Awesome",
         "style": {
           "flex": "vertical"
         },
         "children": [
-          {"type": "box", "box": "Features"},
-          {"type": "box", "box": "Main"}
+          {"type": "box", "box": "1"},
+          {"type": "box", "box": "2"}
         ]
       },
-      "Main": {"name": "Main"},
-      "Features": {"name": "Features"}
+      1: {"name": "Main"},
+      2: {"name": "Features"}
     }
   },
   "outletted": {
-    "name": "Awesome",
-    "inst": {"type": "box", "box": "Awesome"},
+    "id": "1",
+    "inst": {"type": "box", "box": "1"},
     "changeInst": false,
     "boxes": {
-      "Awesome": {
+      1: {
+        "name": "Partless",
         "style": {
           "flex": "vertical"
         },
         "routes": {
-          "/": "Main",
-          "/features": "Features"
+          "/": "10",
+          "/features": "20"
         },
         "children": [
-          {"type": "box", "box": "Header"},
+          {"type": "box", "box": "30"},
           {"type": "outlet"}
         ]
       },
-      "Main": {"name": "Main"},
-      "Header": {
+      10: {"name": "Main"},
+      30: {
         "name": "Header",
         "style": {
           "expand": false
         }
       },
-      "Features": {"name": "Features"}
+      20: {"name": "Features"}
     }
   },
   _wrapState: {

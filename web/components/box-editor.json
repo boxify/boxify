@@ -8,12 +8,17 @@
     "box": {
       "name": "WithRoutes",
       "routes": {
-        "": "OneBox",
-        "features": "TwoBox",
-        "learners": "BlueBox"
+        "": 0,
+        "features": 1,
+        "learners": 2
       }
     },
-    "trail": ["TwoBox"],
-    "boxNames": ["OneBox", "TwoBox", "RedBox", "BlueBox"]
+    "trail": [3],
+    "boxNames": [
+      {"id": 0, "name": "OneBox"},
+      {"id": 1, "name": "TwoBox"},
+      {"id": 2, "name": "RedBox"},
+      {"id": 3, "name": "BlueBox"}
+    ]
   }
 }

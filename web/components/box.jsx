@@ -11,12 +11,13 @@ var Box = module.exports = React.createClass({
   displayName: 'Box',
   getDefaultProps: function () {
     return {
-      name: '',
+      id: '',
       boxes: {},
       inst: null,
       parent: null,
-      onChangeBox: function (name, update) {console.log('want to change something', name, update)},
-      onChangeInst: function (parent, i, update) {console.log('want to change inst', parent, i, update)},
+      onNewBox: function (name, done) {console.log('new box!', name); done(Math.random())},
+      onChangeBox: function (id, update) {console.log('want to change something', id, update)},
+      onChangeInst: function (pid, i, update) {console.log('want to change inst', pid, i, update)},
       changeBox: function (update) {console.log('changeit', update)},
       changeInst: function (update) {console.log('changeit inst', update)},
       trail: []
@@ -25,23 +26,25 @@ var Box = module.exports = React.createClass({
   getInitialState: function () {
     return {editing: false}
   },
-  onAdd: function (name, isNew) {
-    if (isNew) {
-      return this.props.onChangeBox(name, 'new', this.onAdd.bind(null, name, false))
-    }
+  onAddNew: function (name) {
+    this.props.onNewBox(name, function (id) {
+      this.onAdd(id)
+    }.bind(this))
+  },
+  onAdd: function (id) {
     var child
-    if (name === '<outlet>') {
+    if (id === '<outlet>') {
       child = {type: 'outlet'}
     } else {
-      child = {type: 'box', box: name}
+      child = {type: 'box', box: id}
     }
-    if (!this.props.boxes[this.props.name].children) {
-      return this.props.onChangeBox(this.props.name, {children: {$set: [child]}})
+    if (!this.props.boxes[this.props.id].children) {
+      return this.props.onChangeBox(this.props.id, {children: {$set: [child]}})
     }
-    this.props.onChangeBox(this.props.name, {children: {$push: [child]}})
+    this.props.onChangeBox(this.props.id, {children: {$push: [child]}})
   },
   getBox: function () {
-    return this.props.boxes[this.props.name]
+    return this.props.boxes[this.props.id]
   },
   onChangeRoutes: function (routes) {
     this.props.changeInst({routes: {$set: routes}})
@@ -71,11 +74,12 @@ var Box = module.exports = React.createClass({
       ['orientation', this.onToggleOrientation],
       ['edit', this.onEdit]
     ]
-    var name = d.span({className: 'box_name'}, this.props.name)
-      , childless = !this.props.boxes[this.props.name].children
+    var name = this.props.boxes[this.props.id].name
+    var nameBox = d.span({className: 'box_name'}, name)
+      , childless = !this.props.boxes[this.props.id].children
     return (
       <div className={'box_controls' + (childless ? ' box_controls--childless' : '')}>
-        {childless && name}
+        {childless && nameBox}
         <div className='box_controls_buttons'>
           {this.props.changeInst && d.button({className: 'box_control box_remove', onClick: this.onRemove})}
           {
@@ -84,45 +88,47 @@ var Box = module.exports = React.createClass({
             })
           }
         </div>
-        {!childless && name}
+        {!childless && nameBox}
       </div>
     )
   },
-  onNewBox: function (name, done) {
-    this.props.onChangeBox(name, 'new', done)
-  },
   editor: function () {
     if (!this.state.editing) return
+    var boxes = this.props.boxes
+    var boxNames = Object.keys(boxes).map(function (id) {
+      return {id: id, name: boxes[id].name}
+    })
     return (
       <div className='edit-button_editor'>
         <div className='edit-button_back' onClick={this.onCloseEdit}/>
         <BoxEditor
           onChangeInst={this.props.changeInst}
           onChangeBox={this.props.changeBox}
-          onNewBox={this.onNewBox}
-          trail={this.props.trail.concat([this.props.name])}
-          boxNames={Object.keys(this.props.boxes)}
+          onNewBox={this.props.onNewBox}
+          trail={this.props.trail.concat([this.props.id])}
+          boxNames={boxNames}
           isRoot={!this.props.parent}
           inst={this.props.inst}
-          box={this.props.boxes[this.props.name]}/>
+          box={this.props.boxes[this.props.id]}/>
       </div>
     )
   },
   render: function () {
-    var name = this.props.name
-    if (this.props.trail.indexOf(name) !== -1) {
+    var id = this.props.id
+    if (this.props.trail.indexOf(id) !== -1) {
       // TODO handle this better. fix the problem, don't just complain
       return <div className='box'>Recursion!!!!</div>
     }
-    var trail = this.props.trail.concat([name])
+    var trail = this.props.trail.concat([id])
       , style = {}
-      , box = this.props.boxes[name]
+      , box = this.props.boxes[id]
     if (!box) {
-      console.error('Unknown box...', name)
-      return <div className='box'>Unknown Box {name}</div>
+      console.error('Unknown box...', id)
+      return <div className='box'>Unknown Box {id}</div>
     }
-    var addNames = Object.keys(this.props.boxes).filter(function (name) {
-      return trail.indexOf(name) === -1
+    var boxes = this.props.boxes
+    var allNames = Object.keys(this.props.boxes).map(function (id) {
+      return {id: id, name: boxes[id].name}
     })
     if (box.style) {
       style = makeBoxStyle(box.style)
@@ -143,24 +149,25 @@ var Box = module.exports = React.createClass({
                         onChangeBox={this.props.onChangeBox}
                         onChangeRoutes={this.onChangeRoutes}
                         onEditRoutes={this.onEdit}
-                        changeInst={this.props.onChangeInst.bind(null, this.props.name, i)}
+                        changeInst={this.props.onChangeInst.bind(null, this.props.id, i)}
                         trail={trail}
                         routes={box.routes}/>
             }
             return <Box key={i}
                       inst={child}
-                      parent={this.props.name}
+                      parent={this.props.id}
                       boxes={this.props.boxes}
                       changeBox={this.props.onChangeBox.bind(null, child.box)}
-                      changeInst={this.props.onChangeInst.bind(null, this.props.name, i)}
+                      changeInst={this.props.onChangeInst.bind(null, this.props.id, i)}
 
+                      onNewBox={this.props.onNewBox}
                       onChangeInst={this.props.onChangeInst}
                       onChangeBox={this.props.onChangeBox}
-                      name={child.box}
+                      id={child.box}
                       trail={trail}/>
           }.bind(this))
         }
-        <AddBox canAddOutlet={true} boxNames={addNames} allNames={Object.keys(this.props.boxes)} onAdd={this.onAdd}/>
+        <AddBox canAddOutlet={true} boxNames={allNames} exclude={trail} onAdd={this.onAdd} onAddNew={this.onAddNew}/>
         {this.editor()}
       </div>
     )

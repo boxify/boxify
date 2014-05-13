@@ -9,9 +9,10 @@ var RouteEditor = module.exports = React.createClass({
     return {
       initialValue: {name: '', value: ''},
       boxNames: [],
-      allNames: [],
+      exclude: [],
       allChanges: false,
       routesTaken: [],
+      onChangeNew: function (route, name) {console.log('change new', route, name)},
       onChange: function (value) {console.log('changing', value)}
     }
   },
@@ -40,6 +41,9 @@ var RouteEditor = module.exports = React.createClass({
   onChangeValue: function (value) {
     this.props.onChange({name: this.state.name, value: value})
   },
+  onChangeNew: function (title) {
+    this.props.onChangeNew(this.state.name, title)
+  },
   componentWillReceiveProps: function (props) {
     this.setState({name: props.initialValue.name})
   },
@@ -60,7 +64,8 @@ var RouteEditor = module.exports = React.createClass({
           value={this.props.initialValue.value}
           canAddOutlet={false}
           boxNames={this.props.boxNames}
-          allNames={this.props.allNames}
+          exclude={this.props.exclude}
+          onChangeNew={this.onChangeNew}
           onChange={this.onChangeValue}/>
       </div>
     )

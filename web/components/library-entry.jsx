@@ -9,14 +9,14 @@ var LibraryEntry = module.exports = React.createClass({
       isRoot: false,
       onChange: function () {console.log('changing')},
       box: {},
-      name: 'SomeBox'
+      id: 0
     }
   },
   render: function () {
     return (
       <div className='library-entry'>
         <EditButton onChangeBox={this.props.onChange} box={this.props.box} isRoot={this.props.isRoot}/>
-        <div className='library-entry_name'>{this.props.name}</div>
+        <div className='library-entry_name'>{this.props.box.name}</div>
       </div>
     )
   }

@@ -5,14 +5,34 @@
       "features": "TwoBox",
       "learners": "BlueBox"
     },
-    "allNames": ["OneBox", "TwoBox", "RedBox", "BlueBox"],
-    "boxNames": ["OneBox", "TwoBox", "RedBox", "BlueBox"]
+    "boxNames": [{
+      "name": "One", 
+      "id": 0
+    },
+    {
+      "name": "Two", 
+      "id": 1
+    },
+    {
+      "name": "Three",
+      "id": 2
+    }]
   },
   "empty": {
     "routes": {
     },
-    "allNames": ["OneBox", "TwoBox", "RedBox", "BlueBox"],
-    "boxNames": ["OneBox", "TwoBox", "RedBox", "BlueBox"]
+    "boxNames": [{
+      "name": "One", 
+      "id": 0
+    },
+    {
+      "name": "Two", 
+      "id": 1
+    },
+    {
+      "name": "Three",
+      "id": 2
+    }]
   }
 }
 

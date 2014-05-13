@@ -8,11 +8,13 @@ var RoutesEditor = module.exports = React.createClass({
   getDefaultProps: function () {
     return {
       boxNames: [],
-      allNames: [],
+      exclude: [],
       routes: {},
-      onChange: function (orig, value) {console.log('changing', orig, name, value)},
-      onRemove: function (name) {console.log('removing', name)},
-      onAdd: function (route) {console.log('adding', route)}
+      onChange: function (orig, value) {console.log('changing', orig, value)},
+      onChangeNew: function (orig, route, name) {console.log('change new', orig, route, name)},
+      onRemove: function (route) {console.log('removing', route)},
+      onAdd: function (route) {console.log('adding', route)},
+      onAddNew: function (route, name) {console.log('adding new', route, name)}
     }
   },
   render: function () {
@@ -30,8 +32,9 @@ var RoutesEditor = module.exports = React.createClass({
                   <RouteEditor
                     boxNames={this.props.boxNames}
                     routesTaken={routesTaken}
-                    allNames={this.props.allNames}
+                    exclude={this.props.exclude}
                     initialValue={{name: route, value: this.props.routes[route]}}
+                    onChangeNew={this.props.onChangeNew.bind(null, route)}
                     onChange={this.props.onChange.bind(null, route)}/>
                   <button className='routes-editor_remove'
                     onClick={this.props.onRemove.bind(null, route)}/>
@@ -42,9 +45,10 @@ var RoutesEditor = module.exports = React.createClass({
         </ul>
         <RouteAdder
           boxNames={this.props.boxNames}
-          allNames={this.props.allNames}
+          exclude={this.props.exclude}
           routesTaken={routeNames}
-          onAdd={this.props.addRoute}/>
+          onAddNew={this.props.onAddNew}
+          onAdd={this.props.onAdd}/>
       </div>
     )
   }

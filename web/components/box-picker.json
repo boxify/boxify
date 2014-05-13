@@ -1,6 +1,5 @@
 {
   "simple": {
-    "boxNames": ["One", "Two"],
-    "allNames": ["One", "Two"]
+    "boxNames": [{"id": 0, "name": "One"}, {"id": 1, "name": "Two"}],
   }
 }

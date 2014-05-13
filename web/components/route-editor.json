@@ -1,8 +1,11 @@
 {
   "simple": {
-    "initialValue": {"name": "/here", "value": "One"},
-    "boxNames": ["One", "Two", "Three"],
-    "allNames": ["One", "Two", "Three"]
+    "initialValue": {"name": "/here", "value": 1},
+    "boxNames": [
+      {"id": 0, "name": "One"},
+      {"id": 1, "name": "Two"}, 
+      {"id": 2, "name": "Three"}
+    ]
   },
   "_wrapState": {
     "prop": "initialValue",

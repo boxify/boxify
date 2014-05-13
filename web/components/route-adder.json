@@ -1,7 +1,10 @@
 {
   "simple": {
     "routesTaken": ["", "features", "awesomes"],
-    "boxNames": ["One", "Two", "Three"],
-    "allNames": ["One", "Two", "Three"]
+    "boxNames": [
+      {"id": 0, "name": "One"},
+      {"id": 1, "name": "Two"},
+      {"id": 2, "name": "Three"}
+    ]
   }
 }

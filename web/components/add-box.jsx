@@ -6,10 +6,13 @@ var AddBox = module.exports = React.createClass({
   displayName: 'AddBox',
   getDefaultProps: function () {
     return {
-      onAdd: function (name, isNew) {console.log('want to add', name)},
+      onAdd: function (id) {console.log('want to add', id)},
+      onAddNew: function (name) {console.log('adding new', name)},
       canAddOutlet: false,
+      // [{id: _, name: str}, ...}
       boxNames: [],
-      allNames: []
+      // [id, id...]
+      exclude: []
     }
   },
   getInitialState: function () {
@@ -29,9 +32,10 @@ var AddBox = module.exports = React.createClass({
       <div className={'add-box' + (this.state.showing ? ' add-box--showing' : '')} onClick={this.show}>
         {this.state.showing && BoxPicker({
           boxNames: this.props.boxNames,
-          allNames: this.props.allNames,
+          exclude: this.props.exclude,
           canAddOutlet: this.props.canAddOutlet,
           onSelect: this.props.onAdd,
+          onNew: this.props.onAddNew,
           onHide: this.hide
         })}
       </div>

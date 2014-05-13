@@ -11,7 +11,7 @@ var Boxify = module.exports = React.createClass({
   getInitialState: function () {
     return {
       boxes: {
-        root: {
+        0: {
           name: 'root',
         }
       },
@@ -25,12 +25,26 @@ var Boxify = module.exports = React.createClass({
     var boxes = utils.updateInst(parent, i, update, this.state.boxes)
     this.setState({boxes: boxes})
   },
+  onNewBox: function (name, done) {
+    var boxes = _.clone(this.state.boxes)
+      , id = this.newId()
+    boxes[id] = {name: name}
+    this.setState({boxes: boxes}, done.bind(null, id))
+  },
+  newId: function () {
+    var id
+    do {
+      id = parseInt(Math.random() * 1000)
+    } while (undefined !== this.state.boxes[id])
+    return id
+  },
   render: function () {
     return (
       <div className='boxify'>
         <Playground
           onChangeBox={this.onChangeBox}
           onChangeInst={this.onChangeInst}
+          onNewBox={this.onNewBox}
           boxes={this.state.boxes}
           rootBox='root'/>
         <Library onChange={this.onChangeBox} boxes={this.state.boxes} rootBox='root'/>

@@ -74,7 +74,7 @@ var Outlet = module.exports = React.createClass({
 
           onChangeBox: this.props.onChangeBox,
           onChangeInst: this.props.onChangeInst,
-          name: cls,
+          id: cls,
           trail: this.props.trail
         })}
       </div>

@@ -12,16 +12,16 @@ var Library = module.exports = React.createClass({
     }
   },
   render: function () {
-    var names = Object.keys(this.props.boxes)
+    var ids = Object.keys(this.props.boxes)
     return (
       <div className='library'>
         {
-          names.map(function (name) {
+          ids.map(function (id) {
             return <LibraryEntry 
-                      isRoot={name === this.props.rootBox}
+                      isRoot={id === this.props.rootBox}
                       onChange={this.props.onChange}
-                      box={this.props.boxes[name]}
-                      name={name}/>
+                      box={this.props.boxes[id]}
+                      id={id}/>
           }.bind(this))
         }
       </div>
