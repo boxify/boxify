@@ -8,46 +8,90 @@ var Playground = require('./playground.jsx')
 
 var Boxify = module.exports = React.createClass({
   displayName: 'Boxify',
-  getInitialState: function () {
+  getDefaultProps: function () {
     return {
-      boxes: {
-        0: {
-          name: 'root',
-        }
+      saveBoxes: function (path, boxes) {
+        console.log('saving boxes to', path, boxes)
       },
+      getSavePath: function (done) {
+        console.log('Getting save path')
+        done('some place.js')
+      },
+      doOpen: function (path, done) {
+        console.log('wanting to open')
+        done('some place', {0:{name: 'root'}})
+      },
+      getConfig: function (done) {
+        console.log('want config')
+        done({
+          history: []
+        })
+      }
     }
   },
-  onChangeBox: function (box, update, done) {
-    var boxes = utils.updateBox(box, update, this.state.boxes)
-    this.setState({boxes: boxes}, done)
+  getInitialState: function () {
+    return {
+      config: null,
+      project_path: null,
+      boxes: {
+        0: {name: 'root'}
+      }
+    }
   },
-  onChangeInst: function (parent, i, update) {
-    var boxes = utils.updateInst(parent, i, update, this.state.boxes)
-    this.setState({boxes: boxes})
+  componentWillMount: function () {
+    this.props.getConfig(function (config) {
+      this.setState({config: config})
+    }.bind(this))
   },
-  onNewBox: function (name, done) {
-    var boxes = _.clone(this.state.boxes)
-      , id = this.newId()
-    boxes[id] = {name: name}
-    this.setState({boxes: boxes}, done.bind(null, id))
+
+  onSave: function () {
+    if (!this.state.project_path) return this.onSaveAs()
+    this.props.saveBoxes(this.state.project_path, this.state.boxes, function () {
+      this.setState({modified: false})
+    }.bind(this))
   },
-  newId: function () {
-    var id
-    do {
-      id = parseInt(Math.random() * 1000)
-    } while (undefined !== this.state.boxes[id])
-    return id
+  onSaveAs: function () {
+    this.props.getSavePath(function (dest) {
+      if (!dest) return
+      this,setState({
+        project_path: dest
+      }, this.onSave)
+    }.bind(this))
+  },
+  onOpen: function () {
+    this.props.getOpenPath(function (path) {
+      this.openProject(path)
+    }.bind(this))
+  },
+  openProject: function (path) {
+    // TODO any loading indicator here? Shouldn't take long at all
+    this.props.openProject(path, function (boxes) {
+      this.setState({
+        project_path: path,
+        boxes: boxes
+      })
+    })
+  },
+  onChangeBoxes: function (boxes) {
+    this.setState({boxes: boxes, modified: true})
   },
   render: function () {
     return (
       <div className='boxify'>
-        <Playground
-          onChangeBox={this.onChangeBox}
-          onChangeInst={this.onChangeInst}
-          onNewBox={this.onNewBox}
-          boxes={this.state.boxes}
-          rootBox='root'/>
-        <Library onChange={this.onChangeBox} boxes={this.state.boxes} rootBox='root'/>
+        <div className='boxify_header'>
+          <div className='boxify_title'>
+            Boxify
+          </div>
+          <HistoryList list={this.state.config.history} onSelect={this.openProject}/>
+          <button className='boxify_open' onClick={this.props.onOpen}/>
+          {this.state.project_path &&
+            d.button({className: 'boxify_save', onClick: this.props.onSave.bind(null, this.state.project_path})}
+          <button className='boxify_saveas' onClick={this.props.onSaveAs}/>
+          <div className='boxify_project'>
+            {this.state.project_path}
+          </div>
+        </div>
+        <Main boxes={this.state.boxes} onChange={this.onChangeBoxes}/>
       </div>
     )
   }

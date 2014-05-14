@@ -6,7 +6,55 @@
   right: 0;
   bottom: 0;
   display: flex;
+  flex-direction: column;
+}
+
+.boxify-main {
+  flex: 1;
+  display: flex;
   flex-direction: row;
+}
+
+.boxify_head {
+  background-color: lightblue;
+}
+
+.m-i-b {
+  background-color: transparent;
+  border: 1px solid blue;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: white;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.boxify_open {
+  .m-i-b;
+
+  &:after {
+    content: 'Open';
+  }
+}
+
+.boxify_save {
+  .m-i-b;
+
+  &:after {
+    content: 'Save';
+  }
+}
+
+.boxify_saveas {
+  .m-i-b;
+
+  &:after {
+    content: 'Save As';
+  }
 }
 
 .playground {

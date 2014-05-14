@@ -5,7 +5,17 @@ module.exports = {
   offset: offset,
   isGoodRoute: isGoodRoute,
   updateInst: updateInst,
-  updateBox: updateBox
+  updateBox: updateBox,
+  genId: genId
+}
+
+function genId() {
+  var id = ''
+    , chars = 'abcdef0123456789ghijklmnopqrstuvwxyz'
+  for (var i=0; i<10; i++) {
+    id += chars[parseInt(Math.random() * chars.length, 10)]
+  }
+  return id
 }
 
 function isGoodRoute(route, taken) {
